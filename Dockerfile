@@ -1,6 +1,7 @@
 FROM debian:latest
 LABEL version="0.1"
 MAINTAINER veto<veto@myridia.com>
+
 RUN apt-get update && apt-get install -y \
   apache2 \
   apt-transport-https \ 
@@ -46,8 +47,8 @@ RUN apt-get update && apt-get install -y \
   php8.4-pgsql \
   php8.4-soap \
   libapache2-mod-php8.4 \
-  php-pear
-  
+  php-pear 
+    
 
 # Install Composer
 RUN php -r "copy('https://getcomposer.org/installer', '/tmp/composer-setup.php');"
@@ -61,7 +62,8 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 
 
 RUN echo "<?php phpinfo() ?>" > /var/www/html/info.php ; \
-mkdir -p /var/lock/apache2 /var/run/apache2 /var/run/sshd /var/log/supervisor ; \
+rm /var/www/html/index.html ; \
+mkdir -p /var/lock/apache2 /var/run/apache2 /var/run/sshd ; \
 a2enmod rewrite  ; \
 sed -i -e '/memory_limit =/ s/= .*/= 2056M/' /etc/php/8.4/apache2/php.ini ; \
 sed -i -e '/post_max_size =/ s/= .*/= 800M/' /etc/php/8.4/apache2/php.ini ; \
@@ -74,29 +76,23 @@ sed -i -e '/AllowOverride / s/ .*/ All/' /etc/apache2/apache2.conf ; \
 sed -i -e '/max_execution_time =/ s/= .*/= 1200/' /etc/php/8.4/apache2/php.ini ; \
 echo 'open_basedir = "/"' >> /etc/php/8.4/apache2/php.ini ; 
 
-RUN mkdir -p /var/lock/apache2 /var/run/apache2 /var/run/sshd /var/log/supervisor
+
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get -y install phpmyadmin
+
+RUN cp /etc/dbconfig-common/phpmyadmin.conf /etc/apache2/conf-enabled/phpmyadmin.conf 
+
+
 
 WORKDIR /var/www/html/
-RUN wp core download --force --skip-content  --allow-root
+
+EXPOSE 22 80 3306
+COPY entrypoint.sh /entrypoint.sh
+COPY phpmyadmin.conf /etc/apache2/conf-enabled/phpmyadmin.conf
+RUN chmod +x /entrypoint.sh
 
 
-
-
-#RUN 
-#RUN wp plugin install bw-coupon --activate --allow-root
-#RUN wp plugin install wordpress-importer --activate --allow-root
-#RUN wp theme install starter-shop --activate --allow-root 
-#RUN wp wc payment_gateway update cheque --enabled=true --user=1 --allow-root
-
-
-
-EXPOSE 22 80 3306 
-
-#wp core install --url=https://example.com --title="Site Title" --admin_user=admin --admin_password=strongpassword --admin_email=admin@example.com --allow-root && \
-ENTRYPOINT service mariadb start && service apache2 start && \
-wp core config --dbname=database_name --dbuser=root --dbpass=password --dbhost=localhost  --allow-root && \
-wp db create --allow-root && \
-wp core install --url=https://example.com --title="Site Title" --admin_user=admin --admin_password=strongpassword --admin_email=admin@example.com --allow-root && \
-wp plugin install woocommerce --activate --allow-root && /bin/bash
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
+#ENTRYPOINT /bin/bash
 
 
