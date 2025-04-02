@@ -23,7 +23,7 @@ jobs:
       id-token: write
     steps:
       - name: Test User and password
-        run: echo process.env.{DOCKER_USER}
+        run: echo $DOCKER_USER
         
       - name: Check out the repo
         uses: actions/checkout@v4
