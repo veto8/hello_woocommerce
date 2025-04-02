@@ -10,8 +10,10 @@ on:
 #    types: [published]
 
 jobs:
+
+  
   push_to_registry:
-    if: github.repository_owner == 'myridiax'
+    if: github.repository_owner == 'myridia'
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     permissions:
@@ -20,6 +22,9 @@ jobs:
       attestations: write
       id-token: write
     steps:
+      - name: Test User nad password
+        run: echo "xxxx"
+        
       - name: Check out the repo
         uses: actions/checkout@v4
 
