@@ -10,6 +10,9 @@ It also helps to show the mechanics of the wordpress plugins
 ### Run the plain container and remove the container after close the bash
 * Access Wordpress with a Browser over https://127.0.0.1
 * Access the Database with a Browser over https://127.0.0.1/phpmyadmin/
+* DB user:  hello_woocommerce
+* DB pass: hello_woocommerce
+* 
 ```
 docker run --name hello_woocommerce -rm  -it  -p 80:80 myridia/woocommerce
 ```
