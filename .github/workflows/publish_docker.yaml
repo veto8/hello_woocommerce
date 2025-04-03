@@ -7,7 +7,7 @@ on:
 jobs:
   
   push_to_registry:
-    if: github.repository_owner == 'myridia'
+    if: github.repository_owner == 'myridiax'
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     permissions:
@@ -15,12 +15,7 @@ jobs:
       contents: read
       attestations: write
       id-token: write
-    steps:
-      - name:  Test User and password
-        run: |
-            echo ${{ secrets.DOCKER_USER }}
-            echo ${{ secrets.DOCKER_PASS }}
-            
+    steps:            
       - name: Check out the repo
         uses: actions/checkout@v4
 
