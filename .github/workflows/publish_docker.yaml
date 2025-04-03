@@ -22,8 +22,11 @@ jobs:
       attestations: write
       id-token: write
     steps:
-      - name: Test User and password
-        run: echo $DOCKER_USER
+      - name:  Test User and password
+        run: |
+          echo $DOCKER_USER
+          echo ${{ secrets.DOCKER_USER }}
+          
         
       - name: Check out the repo
         uses: actions/checkout@v4
