@@ -5,9 +5,9 @@ It also helps to show the mechanics of the wordpress plugins
 
 
 
-## Different Run Examples
+### Run Examples: 
 
-### Run the plain container and remove the container after close the bash
+#### Run the plain container and remove the container after close the bash
 * Access Wordpress with a Browser over https://127.0.0.1
 * Access the Database with a Browser over https://127.0.0.1/phpmyadmin/
 * DB user:  hello_woocommerce
