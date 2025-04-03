@@ -8,8 +8,8 @@ It also helps to show the mechanics of the wordpress plugins
 ### Run Examples: 
 
 ### After each run you can access Wordpress with
-* Access Wordpress with a Browser on https://127.0.0.1
-* Access the Database with a Browser on https://127.0.0.1/phpmyadmin/
+* Access Wordpress with a Browser on http://127.0.0.1
+* Access the Database with a Browser on http://127.0.0.1/phpmyadmin/
 * DB user:  hello_woocommerce
 * DB pass: hello_woocommerce
 
