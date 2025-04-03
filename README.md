@@ -7,15 +7,23 @@ It also helps to show the mechanics of the wordpress plugins
 
 ### Run Examples: 
 
-#### Run the plain container and remove the container after close the bash
-```
-docker run --name hello_woocommerce --rm  -it  -p 80:80 myridia/woocommerce
-```
-
+### After each run you can access Wordpress with
 * Access Wordpress with a Browser on https://127.0.0.1
 * Access the Database with a Browser on https://127.0.0.1/phpmyadmin/
 * DB user:  hello_woocommerce
 * DB pass: hello_woocommerce
+
+
+#### Build and run the container and remove the container with all its data after you close the bash
+```
+docker run --name hello_woocommerce --rm  -it  -p 80:80 myridia/woocommerce
+```
+
+#### Build and Run the container and kepp the container with all data after you close the bash
+```
+docker run --name hello_woocommerce -it  -p 80:80 myridia/woocommerce
+```
+
 
 
 
