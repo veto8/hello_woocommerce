@@ -24,7 +24,6 @@ jobs:
     steps:
       - name:  Test User and password
         run: |
-          echo $DOCKER_USER
           echo ${{ secrets.DOCKER_USER }}
           
         
